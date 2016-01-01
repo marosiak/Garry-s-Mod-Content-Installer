@@ -22,8 +22,51 @@ bool fileExists(QString path) {
     }
 }
 
+
+bool CheckInstalled(QString typ){
+    QString PathToMap("C:/Program Files (x86)/Steam/steamapps/common/GarrysMod/garrysmod/maps/rp_evocity_v2d.bsp");
+    QString PathToCSS("C:/Program Files (x86)/Steam/steamapps/common/GarrysMod/garrysmod/addons/CSS/addon.txt");
+    QString PathToCityRp("C:/Program Files (x86)/Steam/steamapps/common/GarrysMod/garrysmod/fearless_content/addon.txt");
+    QString PathToHl2ep2("C:/Program Files (x86)/Steam/steamapps/common/GarrysMod/garrysmod/HL2EP2/addon.txt");
+
+    if(typ == "Map"){
+        if(fileExists(PathToMap)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    if(typ == "CSS"){
+        if(fileExists(PathToCSS)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    if(typ == "CityRp"){
+        if(fileExists(PathToCityRp)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    if(typ == "HL2EP2"){
+        if(fileExists(PathToHl2ep2)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+}
+
 void MainWindow::CheckExitsVoid(){
     ui->label_5->setText("");
+
+
     QString CssPath;
     QString HL2Path;
     QString CityRpPath;
@@ -44,23 +87,31 @@ void MainWindow::CheckExitsVoid(){
     CityMapPath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
     CityMapPath += "/GmodContents/CityRpMap.zip";
 
-    if(!fileExists(CssPath)){
-        ui->CSS_Button->setText("Download");
+
+    if(CheckInstalled("HL2EP2") == false){
+        if(!fileExists(HL2Path)){
+            ui->HL2_Button->setText("Download");
+            }
+        else{
+            ui->HL2_Button->setText("Install");
+        }
     }
     else{
-        ui->CSS_Button->setText("Install");
+        ui->HL2_Button->setText("Installed");
+        ui->HL2_Button->setEnabled(false);
     }
-    if(!fileExists(HL2Path)){
-        ui->HL2_Button->setText("Download");
+
+   if(CheckInstalled("CSS") == false){
+        if(!fileExists(CssPath)){
+            ui->CSS_Button->setText("Download");
+            }
+        else{
+            ui->CSS_Button->setText("Install");
+        }
     }
     else{
-        ui->HL2_Button->setText("Install");
-    }
-    if(!fileExists(CityMapPath) || !fileExists(CityRpPath)){
-        ui->CityRp_Button->setText("Download");
-    }
-    if(fileExists(CityMapPath) && fileExists(CityRpPath)){
-        ui->CityRp_Button->setText("Install");
+        ui->CSS_Button->setText("Installed");
+        ui->CSS_Button->setEnabled(false);
     }
 }
 
