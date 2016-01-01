@@ -117,7 +117,32 @@ bool MainWindow::CheckExits(QString tof){
 
 void Install(QString typ){
     if(typ == "CSS"){
-        JlCompress::extractDir("C:/Users\Maciek/GmodContents/CSS.zip", "C:/Users/Maciek/Videos");
+        QString cacheFolder;
+        cacheFolder = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+        cacheFolder += "/GmodContents/CSS.zip";
+        JlCompress::extractDir(cacheFolder, "C:/Program Files (x86)/Steam/steamapps/common/GarrysMod/garrysmod/addons");
+
+    }
+    if(typ == "HL2EP2"){
+        QString cacheFolder;
+        cacheFolder = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+        cacheFolder += "/GmodContents/HL2EP2.zip";
+        JlCompress::extractDir(cacheFolder, "C:/Program Files (x86)/Steam/steamapps/common/GarrysMod/garrysmod/addons");
+
+    }
+    if(typ == "CityRp"){
+        QString cacheFolder;
+        cacheFolder = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+        cacheFolder += "/GmodContents/CityRp.zip";
+        JlCompress::extractDir(cacheFolder, "C:/Program Files (x86)/Steam/steamapps/common/GarrysMod/garrysmod/addons");
+
+    }
+    if(typ == "CityRpMap"){
+        QString cacheFolder;
+        cacheFolder = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+        cacheFolder += "/GmodContents/CityRpMap.zip";
+        JlCompress::extractDir(cacheFolder, "C:/Program Files (x86)/Steam/steamapps/common/GarrysMod/garrysmod/maps");
+
     }
 }
 
@@ -185,7 +210,7 @@ void MainWindow::on_CSS_Button_clicked(){
 void MainWindow::on_HL2_Button_clicked()
 {
     if(CheckExits("HL2EP2") == true){
-        // install
+        Install("HL2EP2");
     }
     else{
         DownloadContent("HL2EP2");
@@ -195,7 +220,8 @@ void MainWindow::on_HL2_Button_clicked()
 void MainWindow::on_CityRp_Button_clicked()
 {
     if(CheckExits("CITYMAP") == true && CheckExits("CITYCONTENT") == true){
-        // install
+        Install("CityRp");
+        Install("CityRpMap");
     }
     if(CheckExits("CITYMAP") == false){
         DownloadContent("CityRpMap");
