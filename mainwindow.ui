@@ -9,20 +9,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>300</width>
-    <height>160</height>
+    <width>250</width>
+    <height>190</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>300</width>
-    <height>160</height>
+    <width>250</width>
+    <height>190</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>300</width>
-    <height>160</height>
+    <height>190</height>
    </size>
   </property>
   <property name="focusPolicy">
@@ -50,10 +50,10 @@
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>140</y>
+      <x>130</x>
+      <y>160</y>
       <width>111</width>
-      <height>16</height>
+      <height>21</height>
      </rect>
     </property>
     <property name="text">
@@ -66,8 +66,8 @@
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>120</y>
+      <x>80</x>
+      <y>130</y>
       <width>91</width>
       <height>21</height>
      </rect>
@@ -85,16 +85,16 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>30</x>
       <y>10</y>
-      <width>282</width>
-      <height>89</height>
+      <width>211</width>
+      <height>106</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="2">
+       <item row="0" column="1">
         <spacer name="horizontalSpacer_2">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -108,16 +108,9 @@
         </spacer>
        </item>
        <item row="0" column="0">
-        <widget class="QPushButton" name="CSS_Button">
+        <widget class="QCheckBox" name="cssCheckBox">
          <property name="text">
-          <string>Install</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>Counter Strike: Source Content</string>
+          <string>Counter Strike Source</string>
          </property>
         </widget>
        </item>
@@ -125,21 +118,7 @@
      </item>
      <item>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="0">
-        <widget class="QPushButton" name="HL2_Button">
-         <property name="text">
-          <string>Install</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>Half Life Epizode 2</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
+       <item row="0" column="1">
         <spacer name="horizontalSpacer">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -152,26 +131,49 @@
          </property>
         </spacer>
        </item>
+       <item row="0" column="0">
+        <widget class="QCheckBox" name="HL2EP2checkBox">
+         <property name="text">
+          <string>Half Life 2 epizode 2</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
      <item>
       <layout class="QGridLayout" name="gridLayout_3">
-       <item row="0" column="0">
-        <widget class="QPushButton" name="CityRp_Button">
-         <property name="text">
-          <string>Install</string>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="1">
-        <widget class="QLabel" name="label_3">
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="0">
+        <widget class="QCheckBox" name="CityRpCheckBox">
          <property name="text">
-          <string>City Rp maps + content</string>
+          <string>City Rp Content</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="2">
-        <spacer name="horizontalSpacer_3">
+       <item row="1" column="0">
+        <widget class="QCheckBox" name="EvocityMapChecker">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="text">
+          <string>Evocity V2d</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <spacer name="horizontalSpacer_4">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -186,6 +188,19 @@
       </layout>
      </item>
     </layout>
+   </widget>
+   <widget class="QPushButton" name="Button">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>160</y>
+      <width>81</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Download</string>
+    </property>
    </widget>
   </widget>
  </widget>

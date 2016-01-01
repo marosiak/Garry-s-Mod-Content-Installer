@@ -34,6 +34,18 @@ private slots:
 
     void on_CityRp_Button_clicked();
 
+    void on_cssCheckBox_clicked(bool checked);
+
+    void on_HL2EP2checkBox_clicked(bool checked);
+
+    void on_CityRpCheckBox_clicked(bool checked);
+
+    void on_EvocityMap_clicked(bool checked);
+
+    void on_Button_clicked(bool checked);
+
+    void on_Button_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
