@@ -9,6 +9,7 @@
 #include <QFileInfo>
 #include <QDir>
 #include <JlCompress.h>
+#include <QDebug>
 
 void Install(QString typ);
 
@@ -26,11 +27,19 @@ bool fileExists(QString path) {
 bool CheckInstalled(QString typ){
     QString PathToMap("C:/Program Files (x86)/Steam/steamapps/common/GarrysMod/garrysmod/maps/rp_evocity_v2d.bsp");
     QString PathToCSS("C:/Program Files (x86)/Steam/steamapps/common/GarrysMod/garrysmod/addons/CSS/addon.txt");
-    QString PathToCityRp("C:/Program Files (x86)/Steam/steamapps/common/GarrysMod/garrysmod/fearless_content/addon.txt");
-    QString PathToHl2ep2("C:/Program Files (x86)/Steam/steamapps/common/GarrysMod/garrysmod/HL2EP2/addon.txt");
+    QString PathToCityRp("C:/Program Files (x86)/Steam/steamapps/common/GarrysMod/garrysmod/addons/CITYRP/addon.txt");
+    QString PathToHl2EP2("C:/Program Files (x86)/Steam/steamapps/common/GarrysMod/garrysmod/addons/HL2EP2/addon.txt");
 
     if(typ == "Map"){
         if(fileExists(PathToMap)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    if(typ == "HL2EP2"){
+        if(fileExists(PathToHl2EP2)){
             return true;
         }
         else{
@@ -47,14 +56,6 @@ bool CheckInstalled(QString typ){
     }
     if(typ == "CityRp"){
         if(fileExists(PathToCityRp)){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-    if(typ == "HL2EP2"){
-        if(fileExists(PathToHl2ep2)){
             return true;
         }
         else{
@@ -96,9 +97,10 @@ void MainWindow::CheckExitsVoid(){
             ui->HL2_Button->setText("Install");
         }
     }
-    else{
+    if(CheckInstalled("HL2EP2") == true){
         ui->HL2_Button->setText("Installed");
         ui->HL2_Button->setEnabled(false);
+        qDebug() << "HL2 Zainstalowane";
     }
 
    if(CheckInstalled("CSS") == false){
@@ -112,11 +114,25 @@ void MainWindow::CheckExitsVoid(){
     else{
         ui->CSS_Button->setText("Installed");
         ui->CSS_Button->setEnabled(false);
+        qDebug() << "CSS Zainstalowane";
+    }
+   if(CheckInstalled("CityRp") == false || CheckInstalled("Map") == false){
+        if(!fileExists(CityRpPath) || !fileExists(CityMapPath)){
+            ui->CityRp_Button->setText("Download");
+            }
+        else{
+            ui->CityRp_Button->setText("Install");
+        }
+    }
+    if(CheckInstalled("CityRp") == true && CheckInstalled("Map") == true){{
+        ui->CityRp_Button->setText("Installed");
+        ui->CityRp_Button->setEnabled(false);
+        qDebug() << "CityRp Zainstalowane";
+        }
     }
 }
 
 bool MainWindow::CheckExits(QString tof){
-    Install("CSS");
     QString CssPath;
     QString HL2Path;
     QString CityRpPath;
@@ -211,8 +227,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::downloadFile(const QString &url, const QString &aPathInClient)
-{
+void MainWindow::downloadFile(const QString &url, const QString &aPathInClient){
     QNetworkAccessManager m_NetworkMngr;
     QNetworkReply *reply= m_NetworkMngr.get(QNetworkRequest(url));
     QEventLoop loop;
@@ -268,8 +283,7 @@ void MainWindow::on_HL2_Button_clicked()
     }
 }
 
-void MainWindow::on_CityRp_Button_clicked()
-{
+void MainWindow::on_CityRp_Button_clicked(){
     if(CheckExits("CITYMAP") == true && CheckExits("CITYCONTENT") == true){
         Install("CityRp");
         Install("CityRpMap");
