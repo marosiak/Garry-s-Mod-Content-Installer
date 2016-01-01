@@ -84,9 +84,9 @@ void MainWindow::CheckExitsVoid(){
     HL2Path = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
     HL2Path += "/GmodContents/HL2EP2.zip";
     CityRpPath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
-    CityRpPath += "/GmodContents/CityRp.zip";
+    CityRpPath += "/GmodContents/CITYRP.zip";
     CityMapPath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
-    CityMapPath += "/GmodContents/CityRpMap.zip";
+    CityMapPath += "/GmodContents/CITYRPMAP.zip";
 
 
     if(CheckInstalled("HL2EP2") == false){
@@ -200,14 +200,14 @@ void Install(QString typ){
     if(typ == "CityRp"){
         QString cacheFolder;
         cacheFolder = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
-        cacheFolder += "/GmodContents/CityRp.zip";
+        cacheFolder += "/GmodContents/CITYRP.zip";
         JlCompress::extractDir(cacheFolder, "C:/Program Files (x86)/Steam/steamapps/common/GarrysMod/garrysmod/addons");
 
     }
     if(typ == "CityRpMap"){
         QString cacheFolder;
         cacheFolder = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
-        cacheFolder += "/GmodContents/CityRpMap.zip";
+        cacheFolder += "/GmodContents/CITYRPMAP.zip";
         JlCompress::extractDir(cacheFolder, "C:/Program Files (x86)/Steam/steamapps/common/GarrysMod/garrysmod/maps");
 
     }
