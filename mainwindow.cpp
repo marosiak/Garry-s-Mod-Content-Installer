@@ -11,8 +11,10 @@
 #include <JlCompress.h>
 #include <QDebug>
 
-bool cssBool;
+
+void DownloadContent(QString typ);
 bool HL2Bool;
+bool CssBool;
 bool CityRpBool;
 bool EvoMapBool;
 bool Downloading = false;
@@ -21,8 +23,6 @@ QString isCss;
 QString isHL2;
 QString isCityRp;
 QString isEvoMap;
-
-void Install(QString typ);
 
 bool fileExists(QString path) {
     QFileInfo checkFile(path);
@@ -35,7 +35,7 @@ bool fileExists(QString path) {
 }
 
 
-bool CheckInstalled(QString typ){
+bool MainWindow::CheckInstalled(QString typ){
     QString PathToMap("C:/Program Files (x86)/Steam/steamapps/common/GarrysMod/garrysmod/maps/rp_evocity_v2d.bsp");
     QString PathToCSS("C:/Program Files (x86)/Steam/steamapps/common/GarrysMod/garrysmod/addons/CSS/addon.txt");
     QString PathToCityRp("C:/Program Files (x86)/Steam/steamapps/common/GarrysMod/garrysmod/addons/CITYRP/addon.txt");
@@ -77,6 +77,7 @@ bool CheckInstalled(QString typ){
 
 void MainWindow::CheckExitsVoid(){
     ui->label_5->setText("");
+    Enable();
     Downloading = false;
 
     QString CssPath;
@@ -152,13 +153,19 @@ void MainWindow::CheckExitsVoid(){
        ui->cssCheckBox->setText("Counter Strike Source");
        ui->EvocityMapChecker->setEnabled(true);
    }
+   if(isCss == "Downloaded"){
+       ui->cssCheckBox->setText("Counter Strike Source [Ready To Install]");
+   }
    if(isHL2 == "Installed"){
        ui->HL2EP2checkBox->setText("Half Life 2 Epizode 2 [Installed]");
        ui->HL2EP2checkBox->setEnabled(false);
    }
    else{
        ui->HL2EP2checkBox->setText("Half Life 2 Epizode 2");
-       ui->EvocityMapChecker->setEnabled(true);
+       ui->HL2EP2checkBox->setEnabled(true);
+   }
+   if(isHL2 == "Downloaded"){
+       ui->HL2EP2checkBox->setText("Half Life 2 Epizode 2 [Ready To Install]");
    }
    if(isCityRp == "Installed"){
        ui->CityRpCheckBox->setText("City Rp Content [Installed]");
@@ -166,7 +173,10 @@ void MainWindow::CheckExitsVoid(){
    }
    else{
        ui->CityRpCheckBox->setText("City Rp");
-       ui->EvocityMapChecker->setEnabled(true);
+       ui->CityRpCheckBox->setEnabled(true);
+   }
+   if(isCityRp == "Downloaded"){
+       ui->CityRpCheckBox->setText("City Rp Content [Ready To Install]");
    }
    if(isEvoMap == "Installed"){
        ui->EvocityMapChecker->setText("Evocity V2d [Installed]");
@@ -175,6 +185,9 @@ void MainWindow::CheckExitsVoid(){
    else{
        ui->EvocityMapChecker->setText("Evocity V2d");
        ui->EvocityMapChecker->setEnabled(true);
+   }
+   if(isEvoMap == "Downloaded"){
+       ui->EvocityMapChecker->setText("Evocity V2D [Ready To Install]");
    }
 }
 
@@ -228,7 +241,7 @@ bool MainWindow::CheckExits(QString tof){
     }
 }
 
-void Install(QString typ){
+void MainWindow::Install(QString typ){
     if(typ == "CSS"){
         QString cacheFolder;
         cacheFolder = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
@@ -265,6 +278,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->label_5->setText("");
+    Enable();
     CheckExitsVoid();
 }
 
@@ -272,6 +286,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
 
 void MainWindow::downloadFile(const QString &url, const QString &aPathInClient){
     QNetworkAccessManager m_NetworkMngr;
@@ -289,6 +304,7 @@ void MainWindow::downloadFile(const QString &url, const QString &aPathInClient){
     CheckExitsVoid();
 
 }
+
 
 void MainWindow::DownloadContent(QString typ){
     ui->label_5->setText("Please be patient");
@@ -310,27 +326,140 @@ void MainWindow::DownloadContent(QString typ){
 }
 
 
+void MainWindow::Disable(QString typ){
+    if(typ == "AllOutCSS"){
+        ui->cssCheckBox->setEnabled(true);
+        ui->HL2EP2checkBox->setEnabled(false);
+        ui->HL2EP2checkBox->setChecked(false);
+        ui->CityRpCheckBox->setEnabled(false);
+        ui->CityRpCheckBox->setChecked(false);
+        ui->EvocityMapChecker->setEnabled(false);
+        ui->EvocityMapChecker->setChecked(false);
+    }
+    if(typ == "AllOutHL2EP2"){
+        ui->cssCheckBox->setEnabled(false);
+        ui->cssCheckBox->setChecked(false);
+        ui->HL2EP2checkBox->setEnabled(true);
+        ui->CityRpCheckBox->setEnabled(false);
+        ui->CityRpCheckBox->setChecked(false);
+        ui->EvocityMapChecker->setEnabled(false);
+        ui->EvocityMapChecker->setChecked(false);
+    }
+    if(typ == "AllOutCityRp"){
+        ui->cssCheckBox->setEnabled(false);
+        ui->cssCheckBox->setChecked(false);
+        ui->HL2EP2checkBox->setEnabled(false);
+        ui->HL2EP2checkBox->setChecked(false);
+        ui->CityRpCheckBox->setEnabled(true);
+        ui->EvocityMapChecker->setEnabled(false);
+        ui->EvocityMapChecker->setChecked(false);
+    }
+    if(typ == "AllOutMap"){
+        ui->cssCheckBox->setEnabled(false);
+        ui->cssCheckBox->setChecked(false);
+        ui->HL2EP2checkBox->setEnabled(false);
+        ui->HL2EP2checkBox->setChecked(false);
+        ui->CityRpCheckBox->setEnabled(false);
+        ui->CityRpCheckBox->setEnabled(false);
+        ui->EvocityMapChecker->setEnabled(true);
+    }
+}
+
+void MainWindow::Enable(){
+    ui->cssCheckBox->setChecked(false);
+    ui->HL2EP2checkBox->setChecked(false);
+    ui->CityRpCheckBox->setChecked(false);
+    ui->EvocityMapChecker->setChecked(false);
+    if(!CheckInstalled("CSS"))
+         ui->cssCheckBox->setEnabled(true);
+    if(!CheckInstalled("HL2EP2"))
+         ui->HL2EP2checkBox->setEnabled(true);
+    if(!CheckInstalled("CityRp"))
+         ui->CityRpCheckBox->setEnabled(true);
+    if(!CheckInstalled("Map"))
+        ui->EvocityMapChecker->setEnabled(true);
+}
+
 void MainWindow::on_cssCheckBox_clicked(bool checked){
-    cssBool = checked;
+    CssBool = checked;
+    if(checked == true){
+        Disable("AllOutCSS");
+    }
+    else{
+        Enable();
+    }
 }
 
 
 void MainWindow::on_HL2EP2checkBox_clicked(bool checked){
     HL2Bool = checked;
+    if(checked == true){
+        Disable("AllOutHL2EP2");
+    }
+    else{
+        Enable();
+    }
 }
 
 
 void MainWindow::on_CityRpCheckBox_clicked(bool checked){
     CityRpBool = checked;
+    if(checked == true){
+        Disable("AllOutCityRp");
+    }
+    else{
+        Enable();
+    }
 }
 
 
 void MainWindow::on_EvocityMap_clicked(bool checked){
     EvoMapBool = checked;
+    if(checked == true){
+        Disable("AllOutMap");
+    }
+    else{
+        Enable();
+    }
 }
 
 
+void MainWindow::Do(){
+    if(CssBool == true){
+        if(isCss == "NotDownloaded"){
+            DownloadContent("CSS");
+        }
+        else{
+            Install("CSS");
+        }
+    }
+    if(HL2Bool == true){
+        if(isHL2 == "NotDownloaded"){
+            DownloadContent("HL2EP2");
+        }
+        else{
+            Install("HL2EP2");
+        }
+    }
+    if(CityRpBool == true){
+        if(isCityRp == "NotDownloaded"){
+            DownloadContent("CityRpContent");
+        }
+        else{
+            Install("CityRp");
+        }
+    }
+    if(EvoMapBool == true){
+        if(isEvoMap == "NotDownloaded"){
+            DownloadContent("CityRpMap");
+        }
+        else{
+            Install("CityRpMap");
+        }
+    }
+}
+
 
 void MainWindow::on_Button_clicked(){
-
+    Do();
 }

@@ -4,9 +4,28 @@
 #include <QObject>
 #include <QByteArray>
 #include <QNetworkAccessManager>
+#include <QMainWindow>
+#include <QList>
+#include <QUrl>
+#include <QQueue>
+#include <QFile>
+#include <QMap>
+#include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QNetworkReply>
-#include <QMainWindow>
+#include <QStringList>
+#include <QFileInfo>
+#include <QTimer>
+#include <QUuid>
+#include <QDir>
+#include <QDebug>
+
+class QNetworkReply;
+
+struct Queue{
+  QString key;
+  QUrl url;
+};
 
 namespace Ui {
 class MainWindow;
@@ -19,20 +38,18 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    QByteArray downloadedData() const;
     void Do_Download();
     void downloadFile(const QString &url, const QString &aPathInClient);
-    void DownloadCSS();
     bool CheckExits(QString tof);
     void CheckExitsVoid();
     void DownloadContent(QString typ);
+    void Install(QString typ);
+    bool CheckInstalled(QString typ);
+    void Do();
+
+
 private slots:
-    void on_CSS_Button_clicked();
-
-    void on_MainWindow_windowTitleChanged(const QString &title);
-
-    void on_HL2_Button_clicked();
-
-    void on_CityRp_Button_clicked();
 
     void on_cssCheckBox_clicked(bool checked);
 
@@ -42,12 +59,18 @@ private slots:
 
     void on_EvocityMap_clicked(bool checked);
 
-    void on_Button_clicked(bool checked);
-
     void on_Button_clicked();
+    void Disable(QString typ);
+    void Enable();
 
 private:
     Ui::MainWindow *ui;
+
+private:
+ QNetworkAccessManager m_WebCtrl;
+ QByteArray m_DownloadedData;
+
+
 };
 
 #endif // MAINWINDOW_H
