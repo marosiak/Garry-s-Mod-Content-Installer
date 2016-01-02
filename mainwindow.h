@@ -19,13 +19,7 @@
 #include <QUuid>
 #include <QDir>
 #include <QDebug>
-
-class QNetworkReply;
-
-struct Queue{
-  QString key;
-  QUrl url;
-};
+#include <QProgressDialog>
 
 namespace Ui {
 class MainWindow;
@@ -48,6 +42,9 @@ public:
     bool CheckInstalled(QString typ);
     void Do();
 
+    //Dodane
+    void doDownload(QString myString);
+
 
 private slots:
 
@@ -63,14 +60,15 @@ private slots:
     void Disable(QString typ);
     void Enable();
 
+    //Dodane
+    void replyFinished (QNetworkReply *reply);
+
 private:
     Ui::MainWindow *ui;
 
-private:
- QNetworkAccessManager m_WebCtrl;
- QByteArray m_DownloadedData;
+    //dodane
 
-
+    QNetworkAccessManager *manager;
 };
 
 #endif // MAINWINDOW_H

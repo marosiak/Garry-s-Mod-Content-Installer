@@ -10,7 +10,51 @@
 #include <QDir>
 #include <JlCompress.h>
 #include <QDebug>
+#include <QProgressDialog>
+#include <QMessageBox>
 
+// dodane
+
+
+void MainWindow::doDownload(QString myString){
+    QUrl myUrl(myString);
+    manager = new QNetworkAccessManager(this);
+
+    connect(manager, SIGNAL(finished(QNetworkReply*)),
+            this, SLOT(replyFinished(QNetworkReply*)));
+
+    manager->get(QNetworkRequest(myUrl));
+}
+
+void MainWindow::replyFinished (QNetworkReply *reply)
+{
+    if(reply->error())
+    {
+        qDebug() << "ERROR!";
+        qDebug() << reply->errorString();
+    }
+    else
+    {
+        qDebug() << reply->header(QNetworkRequest::ContentTypeHeader).toString();
+        qDebug() << reply->header(QNetworkRequest::LastModifiedHeader).toDateTime().toString();
+        qDebug() << reply->header(QNetworkRequest::ContentLengthHeader).toULongLong();
+        qDebug() << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+        qDebug() << reply->attribute(QNetworkRequest::HttpReasonPhraseAttribute).toString();
+
+        QFile *file = new QFile("C:/Qt/downloaded.txt"); // tu sie zapisze
+        if(file->open(QFile::Append))
+        {
+            file->write(reply->readAll());
+            file->flush();
+            file->close();
+        }
+        delete file;
+    }
+
+    reply->deleteLater();
+}
+
+// dodane
 
 void DownloadContent(QString typ);
 bool HL2Bool;
@@ -461,5 +505,6 @@ void MainWindow::Do(){
 
 
 void MainWindow::on_Button_clicked(){
-    Do();
+    //Do();
+    doDownload("http://www.maxmodels.pl/wszystkie-portfolia.html");
 }
