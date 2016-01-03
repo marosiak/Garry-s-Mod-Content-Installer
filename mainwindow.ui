@@ -21,7 +21,7 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>300</width>
+    <width>250</width>
     <height>190</height>
    </size>
   </property>
@@ -179,9 +179,9 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>10</x>
       <y>160</y>
-      <width>251</width>
+      <width>231</width>
       <height>25</height>
      </rect>
     </property>

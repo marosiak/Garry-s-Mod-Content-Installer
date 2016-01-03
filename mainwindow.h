@@ -42,9 +42,6 @@ public:
     bool CheckInstalled(QString typ);
     void Do();
 
-    //Dodane
-    void doDownload(QString myString);
-
 
 private slots:
 
@@ -60,15 +57,8 @@ private slots:
     void Disable(QString typ);
     void Enable();
 
-    //Dodane
-    void replyFinished (QNetworkReply *reply);
-
 private:
     Ui::MainWindow *ui;
-
-    //dodane
-
-    QNetworkAccessManager *manager;
 };
 
 #endif // MAINWINDOW_H

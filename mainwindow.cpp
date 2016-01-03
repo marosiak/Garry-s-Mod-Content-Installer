@@ -13,49 +13,6 @@
 #include <QProgressDialog>
 #include <QMessageBox>
 
-// dodane
-
-
-void MainWindow::doDownload(QString myString){
-    QUrl myUrl(myString);
-    manager = new QNetworkAccessManager(this);
-
-    connect(manager, SIGNAL(finished(QNetworkReply*)),
-            this, SLOT(replyFinished(QNetworkReply*)));
-
-    manager->get(QNetworkRequest(myUrl));
-}
-
-void MainWindow::replyFinished (QNetworkReply *reply)
-{
-    if(reply->error())
-    {
-        qDebug() << "ERROR!";
-        qDebug() << reply->errorString();
-    }
-    else
-    {
-        qDebug() << reply->header(QNetworkRequest::ContentTypeHeader).toString();
-        qDebug() << reply->header(QNetworkRequest::LastModifiedHeader).toDateTime().toString();
-        qDebug() << reply->header(QNetworkRequest::ContentLengthHeader).toULongLong();
-        qDebug() << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
-        qDebug() << reply->attribute(QNetworkRequest::HttpReasonPhraseAttribute).toString();
-
-        QFile *file = new QFile("C:/Qt/downloaded.txt"); // tu sie zapisze
-        if(file->open(QFile::Append))
-        {
-            file->write(reply->readAll());
-            file->flush();
-            file->close();
-        }
-        delete file;
-    }
-
-    reply->deleteLater();
-}
-
-// dodane
-
 void DownloadContent(QString typ);
 bool HL2Bool;
 bool CssBool;
@@ -121,6 +78,7 @@ bool MainWindow::CheckInstalled(QString typ){
 
 void MainWindow::CheckExitsVoid(){
     ui->label_5->setText("");
+    ui->Button->setText("Download / Install");
     Enable();
     Downloading = false;
 
@@ -352,6 +310,13 @@ void MainWindow::downloadFile(const QString &url, const QString &aPathInClient){
 
 void MainWindow::DownloadContent(QString typ){
     ui->label_5->setText("Please be patient");
+    ui->Button->setText("Wait");
+//
+    ui->cssCheckBox->setEnabled(false);
+    ui->HL2EP2checkBox->setEnabled(false);
+    ui->CityRpCheckBox->setEnabled(false);
+    ui->EvocityMapChecker->setEnabled(false);
+//
     QString cachePath;
     cachePath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
     cachePath += "/GmodContents/";
@@ -374,7 +339,6 @@ void MainWindow::Disable(QString typ){
     if(typ == "AllOutCSS"){
         ui->cssCheckBox->setEnabled(true);
         ui->HL2EP2checkBox->setEnabled(false);
-        ui->HL2EP2checkBox->setChecked(false);
         ui->CityRpCheckBox->setEnabled(false);
         ui->CityRpCheckBox->setChecked(false);
         ui->EvocityMapChecker->setEnabled(false);
@@ -472,39 +436,32 @@ void MainWindow::Do(){
     if(CssBool == true){
         if(isCss == "NotDownloaded"){
             DownloadContent("CSS");
-        }
-        else{
-            Install("CSS");
+            //Install("CSS");
         }
     }
     if(HL2Bool == true){
         if(isHL2 == "NotDownloaded"){
             DownloadContent("HL2EP2");
-        }
-        else{
-            Install("HL2EP2");
+            //Install("HL2EP2");
         }
     }
     if(CityRpBool == true){
         if(isCityRp == "NotDownloaded"){
             DownloadContent("CityRpContent");
-        }
-        else{
-            Install("CityRp");
+            //Install("CityRp");
         }
     }
     if(EvoMapBool == true){
         if(isEvoMap == "NotDownloaded"){
             DownloadContent("CityRpMap");
-        }
-        else{
-            Install("CityRpMap");
+            //Install("CityRpMap");
         }
     }
 }
 
 
 void MainWindow::on_Button_clicked(){
-    //Do();
-    doDownload("http://www.maxmodels.pl/wszystkie-portfolia.html");
+    if(CssBool || HL2Bool || CityRpBool || EvoMapBool && ui->Button->text() != "Wait"){
+        Do();
+    }
 }
