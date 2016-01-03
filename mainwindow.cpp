@@ -244,18 +244,23 @@ bool MainWindow::CheckExits(QString tof){
 }
 
 void MainWindow::Install(QString typ){
+
     if(typ == "CSS"){
+        Disable("AllOutCss");
         QString cacheFolder;
         cacheFolder = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
         cacheFolder += "/GmodContents/CSS.zip";
         JlCompress::extractDir(cacheFolder, "C:/Program Files (x86)/Steam/steamapps/common/GarrysMod/garrysmod/addons");
+        //CheckExitsVoid();
 
     }
     if(typ == "HL2EP2"){
+        Disable("AllOutHL2Ep2");
         QString cacheFolder;
         cacheFolder = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
         cacheFolder += "/GmodContents/HL2EP2.zip";
         JlCompress::extractDir(cacheFolder, "C:/Program Files (x86)/Steam/steamapps/common/GarrysMod/garrysmod/addons");
+        //CheckExitsVoid();
 
     }
     if(typ == "CityRp"){
@@ -263,6 +268,7 @@ void MainWindow::Install(QString typ){
         cacheFolder = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
         cacheFolder += "/GmodContents/CITYRP.zip";
         JlCompress::extractDir(cacheFolder, "C:/Program Files (x86)/Steam/steamapps/common/GarrysMod/garrysmod/addons");
+        //CheckExitsVoid();
 
     }
     if(typ == "CityRpMap"){
@@ -270,6 +276,7 @@ void MainWindow::Install(QString typ){
         cacheFolder = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
         cacheFolder += "/GmodContents/CITYRPMAP.zip";
         JlCompress::extractDir(cacheFolder, "C:/Program Files (x86)/Steam/steamapps/common/GarrysMod/garrysmod/maps");
+        //CheckExitsVoid();
 
     }
 }
@@ -436,25 +443,51 @@ void MainWindow::Do(){
     if(CssBool == true){
         if(isCss == "NotDownloaded"){
             DownloadContent("CSS");
-            //Install("CSS");
+        }
+        if(isCss == "Downloaded"){
+            isCss = "Installed";
+            CheckExitsVoid();
+            ui->cssCheckBox->setText("Counter Strike Source [Installed]");
+            ui->cssCheckBox->setEnabled(false);
+            Install("CSS");
+
         }
     }
     if(HL2Bool == true){
         if(isHL2 == "NotDownloaded"){
             DownloadContent("HL2EP2");
-            //Install("HL2EP2");
+        }
+        if(isHL2 == "Downloaded"){
+            isHL2 = "Installed";
+            CheckExitsVoid();
+            ui->HL2EP2checkBox->setText("Half Life 2 Epizode 2 [Installed]");
+            ui->HL2EP2checkBox->setEnabled(false);
+            Install("HL2EP2");
+
         }
     }
     if(CityRpBool == true){
         if(isCityRp == "NotDownloaded"){
             DownloadContent("CityRpContent");
-            //Install("CityRp");
+        }
+        if(isCityRp == "Downloaded"){
+            isCityRp = "Installed";
+            CheckExitsVoid();
+            ui->CityRpCheckBox->setText("City Rp Content [Installed]");
+            ui->CityRpCheckBox->setEnabled(false);
+            Install("CityRp");
         }
     }
     if(EvoMapBool == true){
         if(isEvoMap == "NotDownloaded"){
             DownloadContent("CityRpMap");
-            //Install("CityRpMap");
+        }
+        if(isEvoMap == "Downloaded"){
+            isEvoMap = "Installed";
+            CheckExitsVoid();
+            ui->EvocityMapChecker->setText("Evocity V2d [Installed]");
+            ui->EvocityMapChecker->setEnabled(false);
+            Install("CityRpMap");
         }
     }
 }
