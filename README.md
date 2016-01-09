@@ -1,4 +1,10 @@
-Garry's Mod Content Installer
-Program which installing contents like textures / maps to garry's mod.
+# Garry's Mod Content Installer
 
-Link to bin (for windows): http://adf.ly/1Urm3m
+It's Application which installing contents like textures / maps to garry's mod.
+* Link to bin (for windows): http://adf.ly/1Urm3m
+
+### Installation & Using
+* Download **setup** from link and install
+* **Select** content which you want to install
+* **Press Download / Install** and wait
+* If you will see **"[Ready to install]"** like "Counter Strike Source **[Ready to install]**" select it again ang press **Download / Install** button.
