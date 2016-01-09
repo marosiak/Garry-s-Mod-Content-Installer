@@ -1,7 +1,7 @@
 # Garry's Mod Content Installer
 
 It's Application which installing contents like textures / maps to garry's mod.
-** Link to bin (for windows): ** http://adf.ly/1Urm3m
+**Link to bin (for windows)**: http://adf.ly/1Urm3m
 
 ### Installation & Using
 * Download **setup** from link and install
