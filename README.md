@@ -8,3 +8,7 @@ It's Application which installing contents like textures / maps to garry's mod.
 * **Select** content which you want to install
 * **Press Download / Install** and wait
 * If you will see **"[Ready to install]"** like "Counter Strike Source **[Ready to install]**" select it again ang press **Download / Install** button.
+* **Enjoy**
+
+### Check it on steam and rate
+* http://steamcommunity.com/sharedfiles/filedetails/?id=592000372
