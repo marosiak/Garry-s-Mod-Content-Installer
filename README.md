@@ -13,5 +13,3 @@ It's Application which installing contents like textures / maps to garry's mod.
 
 ### Check it on steam and rate
 * http://steamcommunity.com/sharedfiles/filedetails/?id=592000372
-
-![alt tag](blob:https://drive.google.com/8024ba33-3521-47ee-b7e9-989ab9095166)
